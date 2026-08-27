@@ -51,40 +51,40 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-argument-primitives.git",
+            url: "https://github.com/swift-molecules/swift-argument.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-affine-primitives.git",
+            url: "https://github.com/swift-molecules/swift-affine.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-index-primitives.git",
+            url: "https://github.com/swift-molecules/swift-index.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-text-primitives.git",
+            url: "https://github.com/swift-molecules/swift-text.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-ordinal-primitives.git",
+            url: "https://github.com/swift-molecules/swift-ordinal.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-tagged-primitives.git",
+            url: "https://github.com/swift-molecules/swift-tagged.git",
             branch: "main"
         ),
         .package(url: "https://github.com/swift-ieee/swift-ieee-1003.git", branch: "main"),
         .package(
-            url: "https://github.com/swift-primitives/swift-parser-primitives.git",
+            url: "https://github.com/swift-molecules/swift-parser.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-serializer-primitives.git",
+            url: "https://github.com/swift-molecules/swift-serializer.git",
             branch: "main"
         ),
-        .package(url: "https://github.com/swift-foundations/swift-environment.git", branch: "main"),
-        .package(url: "https://github.com/swift-foundations/swift-process.git", branch: "main"),
+        .package(url: "https://github.com/swift-compositions/swift-environment.git", branch: "main"),
+        .package(url: "https://github.com/swift-compositions/swift-process.git", branch: "main"),
     ],
     targets: [
 
@@ -96,7 +96,7 @@ let package = Package(
         .target(
             name: "Argument Standard Library Integration",
             dependencies: [
-                .product(name: "Argument Primitives", package: "swift-argument-primitives")
+                .product(name: "Argument", package: "swift-argument")
             ]
         ),
 
@@ -105,13 +105,13 @@ let package = Package(
             dependencies: [
                 "Command Primitive",
                 "Argument Standard Library Integration",
-                .product(name: "Argument Primitives", package: "swift-argument-primitives"),
-                .product(name: "Text Primitives", package: "swift-text-primitives"),
-                .product(name: "Ordinal Primitive", package: "swift-ordinal-primitives"),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
+                .product(name: "Argument", package: "swift-argument"),
+                .product(name: "Text", package: "swift-text"),
+                .product(name: "Ordinal Primitive", package: "swift-ordinal"),
+                .product(name: "Tagged", package: "swift-tagged"),
                 .product(name: "IEEE_1003", package: "swift-ieee-1003"),
-                .product(name: "Parser Primitives", package: "swift-parser-primitives"),
-                .product(name: "Serializer Primitives", package: "swift-serializer-primitives"),
+                .product(name: "Parser", package: "swift-parser"),
+                .product(name: "Serializer", package: "swift-serializer"),
             ]
         ),
 
@@ -120,14 +120,14 @@ let package = Package(
             dependencies: [
                 "Command Core",
                 "Argument Standard Library Integration",
-                .product(name: "Argument Schema Primitives", package: "swift-argument-primitives"),
-                .product(name: "Affine Carrier Primitives", package: "swift-affine-primitives"),
-                .product(name: "Affine Tagged Primitives", package: "swift-affine-primitives"),
-                .product(name: "Index Primitives", package: "swift-index-primitives"),
-                .product(name: "Ordinal Primitive", package: "swift-ordinal-primitives"),
-                .product(name: "Ordinal Tagged Primitives", package: "swift-ordinal-primitives"),
-                .product(name: "Tagged Primitives", package: "swift-tagged-primitives"),
-                .product(name: "Text Primitives", package: "swift-text-primitives"),
+                .product(name: "Argument Schema", package: "swift-argument"),
+                .product(name: "Affine Carrier", package: "swift-affine"),
+                .product(name: "Affine Tagged", package: "swift-affine"),
+                .product(name: "Index", package: "swift-index"),
+                .product(name: "Ordinal Primitive", package: "swift-ordinal"),
+                .product(name: "Ordinal Tagged", package: "swift-ordinal"),
+                .product(name: "Tagged", package: "swift-tagged"),
+                .product(name: "Text", package: "swift-text"),
                 .product(name: "Environment", package: "swift-environment"),
             ]
         ),
@@ -136,7 +136,7 @@ let package = Package(
             name: "Command Help",
             dependencies: [
                 "Command Schema",
-                .product(name: "Serializer Primitives", package: "swift-serializer-primitives"),
+                .product(name: "Serializer", package: "swift-serializer"),
             ]
         ),
 
@@ -167,8 +167,8 @@ let package = Package(
             dependencies: [
                 "Command",
                 .product(
-                    name: "Argument Primitives Test Support",
-                    package: "swift-argument-primitives"
+                    name: "Argument Test Support",
+                    package: "swift-argument"
                 ),
                 .product(name: "IEEE_1003 Test Support", package: "swift-ieee-1003"),
                 .product(name: "Environment", package: "swift-environment"),

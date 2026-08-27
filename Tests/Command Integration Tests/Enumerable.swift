@@ -1,5 +1,5 @@
 import Command_Test_Support
-import Finite_Primitives
+import Finite
 
 enum Operation: Argument.Flag.Enumerable {
     case add

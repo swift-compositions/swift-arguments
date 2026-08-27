@@ -1,10 +1,10 @@
-internal import Affine_Carrier_Primitives
-internal import Affine_Tagged_Primitives
-internal import Index_Primitives
+internal import Affine_Carrier
+internal import Affine_Tagged
+internal import Index
 internal import Ordinal_Primitive
-internal import Ordinal_Tagged_Primitives
-public import Tagged_Primitives
-internal import Text_Primitives
+internal import Ordinal_Tagged
+public import Tagged
+internal import Text
 
 extension Command.Schema {
 

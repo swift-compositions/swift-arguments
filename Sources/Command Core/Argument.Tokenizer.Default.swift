@@ -1,8 +1,8 @@
-public import Argument_Primitives
+public import Argument
 public import IEEE_1003
 internal import Ordinal_Primitive
-internal import Tagged_Primitives
-internal import Text_Primitives
+internal import Tagged
+internal import Text
 
 extension Argument.Tokenizer {
 

@@ -1,4 +1,4 @@
-public import Argument_Primitives
+public import Argument
 
 extension Command {
 

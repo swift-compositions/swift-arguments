@@ -2,7 +2,7 @@
 
 ![Development Status](https://img.shields.io/badge/status-active--development-blue.svg)
 
-Typed, Foundation-free CLI argument parser composing `swift-argument-primitives` (vocabulary) and `swift-ieee-1003` (POSIX 12.2 tokenization) into the institute's argument-parsing foundation.
+Typed, Foundation-free CLI argument parser composing `swift-argument` (vocabulary) and `swift-ieee-1003` (POSIX 12.2 tokenization) into the institute's argument-parsing composition.
 
 ---
 
@@ -98,7 +98,7 @@ The `.exit(code:message:)` case (D17) lets consumers thread custom exit codes th
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/swift-foundations/swift-arguments.git", branch: "main")
+    .package(url: "https://github.com/swift-compositions/swift-arguments.git", branch: "main")
 ]
 ```
 
@@ -141,23 +141,23 @@ Command
 
 ### Dependencies
 
-- `swift-argument-primitives` (L1) — argument vocabulary: `Argument.Name`, `Argument.Arity`, `Argument.Token`, `Argument.Schema.Node`/`Visitor`, etc.
-- `swift-ieee-1003` (L2) — POSIX 12.2 utility-syntax tokenization (Chapter 12).
-- `swift-parser-primitives` (L1) — `Parser.\`Protocol\`` substrate.
-- `swift-serializer-primitives` (L1) — `Serializer.\`Protocol\`` substrate for help-text emission.
+- `swift-argument` (L2) — argument vocabulary: `Argument.Name`, `Argument.Arity`, `Argument.Token`, `Argument.Schema.Node`/`Visitor`, etc.
+- `swift-ieee-1003` (L3) — POSIX 12.2 utility-syntax tokenization (Chapter 12).
+- `swift-parser` (L2) — `Parser.\`Protocol\`` substrate.
+- `swift-serializer` (L2) — `Serializer.\`Protocol\`` substrate for help-text emission.
 
-GNU long-options are handled inline at L3 (see `Argument.Tokenizer.Default`) — there is no separate `swift-gnu` L2 package in v1.
+GNU long-options are handled inline at L4 (see `Argument.Tokenizer.Default`) — there is no separate `swift-gnu` L3 package in v1.
 
 ---
 
 ## Error Handling
 
-`Command.Error` is the typed-throws domain for the entire L3 stack:
+`Command.Error` is the typed-throws domain for the entire L4 stack:
 
 ```swift
 public enum Command.Error: Swift.Error, Sendable, Hashable, Equatable {
-    case argument(Argument.Error)                    // L1 escape
-    case tokenizer(reason: String, argvIndex: Int)   // L2 tokenizer failure
+    case argument(Argument.Error)                    // L2 escape
+    case tokenizer(reason: String, argvIndex: Int)   // L3 tokenizer failure
     case unknownLongOption(name: String, position: Argument.Position)
     case unknownShortOption(name: Character, position: Argument.Position)
     case missingOptionValue(name: String, position: Argument.Position)
@@ -181,8 +181,8 @@ public enum Command.Error: Swift.Error, Sendable, Hashable, Equatable {
 
 | In scope | Out of scope (v2+) |
 |---|---|
-| Parse argv → typed command struct | Shell completion script generation (Bash/Zsh/Fish/PowerShell — future `swift-shell-completion` L3 domain) |
-| Validate via typed throws | Manpage generation (troff/mdoc — future `swift-manpages` L3 package) |
+| Parse argv → typed command struct | Shell completion script generation (Bash/Zsh/Fish/PowerShell — future `swift-shell-completion` L4 domain) |
+| Validate via typed throws | Manpage generation (troff/mdoc — future `swift-manpages` L4 package) |
 | Run command (single always-async `Command.\`Protocol\``) | Response files (`@file.rsp`) |
 | Emit `--help` text on demand | Config-file fallback (JSON/YAML/TOML — trait-gated future `* Foundation Integration` targets) |
 | POSIX 12.2 + GNU long-option tokenization | `@CLI` macro / property-wrapper sugar |

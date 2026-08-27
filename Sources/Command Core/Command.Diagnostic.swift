@@ -1,4 +1,4 @@
-internal import Tagged_Primitives
+internal import Tagged
 
 extension Command {
 
