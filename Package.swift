@@ -120,7 +120,7 @@ let package = Package(
             dependencies: [
                 "Command Core",
                 "Argument Standard Library Integration",
-                .product(name: "Argument Schema", package: "swift-argument"),
+                .product(name: "Argument", package: "swift-argument"),
                 .product(name: "Affine Carrier", package: "swift-affine"),
                 .product(name: "Affine Tagged", package: "swift-affine"),
                 .product(name: "Index", package: "swift-index"),
