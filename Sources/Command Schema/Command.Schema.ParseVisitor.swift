@@ -1,8 +1,6 @@
-internal import Affine_Carrier
-internal import Affine_Tagged
 internal import Index
-internal import Ordinal_Primitive
-internal import Ordinal_Tagged
+internal import Ordinal
+internal import Ordinal
 public import Tagged
 internal import Text
 

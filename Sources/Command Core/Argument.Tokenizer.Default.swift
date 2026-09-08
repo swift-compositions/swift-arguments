@@ -1,6 +1,6 @@
 public import Argument
 public import IEEE_1003
-internal import Ordinal_Primitive
+internal import Ordinal
 internal import Tagged
 internal import Text
 
