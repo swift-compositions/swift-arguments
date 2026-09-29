@@ -35,8 +35,8 @@ let package = Package(
             targets: ["Command Runner"]
         ),
         .library(
-            name: "Argument Standard Library Integration",
-            targets: ["Argument Standard Library Integration"]
+            name: "Argument",
+            targets: ["Argument"]
         ),
 
         .library(
@@ -50,37 +50,34 @@ let package = Package(
         ),
     ],
     dependencies: [
+        .package(url: "https://github.com/swift-atoms/swift-argument.git", branch: "main", traits: ["Diagnostic", "Tagged", "Finite", "Text"]),
         .package(
-            url: "https://github.com/swift-molecules/swift-argument.git",
+            url: "https://github.com/swift-atoms/swift-affine.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-affine.git",
+            url: "https://github.com/swift-atoms/swift-index.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-index.git",
+            url: "https://github.com/swift-atoms/swift-text.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-text.git",
+            url: "https://github.com/swift-atoms/swift-ordinal.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-ordinal.git",
-            branch: "main"
-        ),
-        .package(
-            url: "https://github.com/swift-molecules/swift-tagged.git",
+            url: "https://github.com/swift-atoms/swift-tagged.git",
             branch: "main"
         ),
         .package(url: "https://github.com/swift-ieee/swift-ieee-1003.git", branch: "main"),
         .package(
-            url: "https://github.com/swift-molecules/swift-parser.git",
+            url: "https://github.com/swift-atoms/swift-parser.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-molecules/swift-serializer.git",
+            url: "https://github.com/swift-atoms/swift-serializer.git",
             branch: "main"
         ),
         .package(url: "https://github.com/swift-compositions/swift-environment.git", branch: "main"),
@@ -94,7 +91,7 @@ let package = Package(
         ),
 
         .target(
-            name: "Argument Standard Library Integration",
+            name: "Argument",
             dependencies: [
                 .product(name: "Argument", package: "swift-argument")
             ]
@@ -104,7 +101,7 @@ let package = Package(
             name: "Command Core",
             dependencies: [
                 "Command Primitive",
-                "Argument Standard Library Integration",
+                "Argument",
                 .product(name: "Argument", package: "swift-argument"),
                 .product(name: "Text", package: "swift-text"),
                 .product(name: "Ordinal", package: "swift-ordinal"),
@@ -119,7 +116,7 @@ let package = Package(
             name: "Command Schema",
             dependencies: [
                 "Command Core",
-                "Argument Standard Library Integration",
+                "Argument",
                 .product(name: "Argument", package: "swift-argument"),
                 .product(name: "Index", package: "swift-index"),
                 .product(name: "Ordinal", package: "swift-ordinal"),
@@ -155,7 +152,7 @@ let package = Package(
                 "Command Schema",
                 "Command Help",
                 "Command Runner",
-                "Argument Standard Library Integration",
+                "Argument",
             ]
         ),
 

@@ -569,35 +569,36 @@ extension Command.Schema.ParseVisitor {
         name: String,
         kind: String
     ) throws(Command.Error) {
+        let observed = UInt(count)
         switch arity {
         case .exactly(let target):
-            guard count == target else {
+            guard observed == target.rawValue else {
                 throw .validationFailed(
                     reason:
-                        "Expected exactly \(target) value(s) for \(kind) '\(name)', got \(count)."
+                        "Expected exactly \(target.rawValue) value(s) for \(kind) '\(name)', got \(count)."
                 )
             }
 
         case .atMost(let maximum):
-            guard count <= maximum else {
+            guard observed <= maximum.rawValue else {
                 throw .validationFailed(
                     reason:
-                        "Expected at most \(maximum) value(s) for \(kind) '\(name)', got \(count)."
+                        "Expected at most \(maximum.rawValue) value(s) for \(kind) '\(name)', got \(count)."
                 )
             }
 
         case .atLeast(let minimum):
-            guard count >= minimum else {
+            guard observed >= minimum.rawValue else {
                 throw .validationFailed(
                     reason:
-                        "Expected at least \(minimum) value(s) for \(kind) '\(name)', got \(count)."
+                        "Expected at least \(minimum.rawValue) value(s) for \(kind) '\(name)', got \(count)."
                 )
             }
 
         case .range(let range):
-            guard range.contains(count) else {
+            guard observed >= range.lowerBound.rawValue && observed <= range.upperBound.rawValue else {
                 throw .validationFailed(
-                    reason: "Expected \(range.lowerBound)…\(range.upperBound) value(s) for \(kind) "
+                    reason: "Expected \(range.lowerBound.rawValue)…\(range.upperBound.rawValue) value(s) for \(kind) "
                         + "'\(name)', got \(count)."
                 )
             }
