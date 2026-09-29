@@ -50,7 +50,7 @@ let package = Package(
         ),
     ],
     dependencies: [
-        .package(url: "https://github.com/swift-atoms/swift-argument.git", branch: "main", traits: ["Diagnostic", "Tagged", "Finite", "Text"]),
+        .package(url: "https://github.com/swift-atoms/swift-argument.git", branch: "main", traits: ["Diagnostic", "Tagged", "Finite", "Text", "Index"]),
         .package(
             url: "https://github.com/swift-atoms/swift-affine.git",
             branch: "main"
