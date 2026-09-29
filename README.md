@@ -122,7 +122,7 @@ The umbrella `Command` product re-exports every sub-target. Consumers wanting fi
 | `Command` | Default — full surface (Namespace + Core + Schema + Help + Argument SLI). |
 | `Command Schema` | Schema declarations + parsing without help-text emission. |
 | `Command Help` | Help-text serializer over an externally-supplied schema. |
-| `Argument Standard Library Integration` | `Argument.Codable` + stdlib conformances only. |
+| `Arguments` | `Argument.Codable` + stdlib conformances only. |
 
 ---
 
@@ -134,7 +134,7 @@ Command
 ├── Command Core                            — Configuration, Error, Context, Exit, Argument.Tokenizer.Default
 ├── Command Schema                          — Command.`Protocol`, Schema.Definition, Builder, parse(_:from:initial:)
 ├── Command Help                            — Command.Help: Serializer.`Protocol` over Schema.Definition
-└── Argument Standard Library Integration   — Argument.Codable / Parseable / Serializable + stdlib conformances
+└── Arguments   — Argument.Codable / Parseable / Serializable + stdlib conformances
 ```
 
 `Command Namespace` is the namespace-only target per the institute's multi-target shape; no implementation lives there. The umbrella `Command` re-exports all sub-targets.

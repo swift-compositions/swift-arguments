@@ -1,4 +1,4 @@
-@_exported public import Argument
+@_exported public import Arguments
 @_exported public import Command_Core
 @_exported public import Command_Help
 @_exported public import Command_Primitive

@@ -35,8 +35,8 @@ let package = Package(
             targets: ["Command Runner"]
         ),
         .library(
-            name: "Argument",
-            targets: ["Argument"]
+            name: "Arguments",
+            targets: ["Arguments"]
         ),
 
         .library(
@@ -91,7 +91,7 @@ let package = Package(
         ),
 
         .target(
-            name: "Argument",
+            name: "Arguments",
             dependencies: [
                 .product(name: "Argument", package: "swift-argument")
             ]
@@ -101,7 +101,7 @@ let package = Package(
             name: "Command Core",
             dependencies: [
                 "Command Primitive",
-                "Argument",
+                "Arguments",
                 .product(name: "Argument", package: "swift-argument"),
                 .product(name: "Text", package: "swift-text"),
                 .product(name: "Ordinal", package: "swift-ordinal"),
@@ -116,7 +116,7 @@ let package = Package(
             name: "Command Schema",
             dependencies: [
                 "Command Core",
-                "Argument",
+                "Arguments",
                 .product(name: "Argument", package: "swift-argument"),
                 .product(name: "Index", package: "swift-index"),
                 .product(name: "Ordinal", package: "swift-ordinal"),
@@ -152,7 +152,7 @@ let package = Package(
                 "Command Schema",
                 "Command Help",
                 "Command Runner",
-                "Argument",
+                "Arguments",
             ]
         ),
 
@@ -199,7 +199,7 @@ let package = Package(
             ]
         ),
         .testTarget(
-            name: "Argument Standard Library Integration Tests",
+            name: "Arguments Tests",
             dependencies: ["Command Test Support"]
         ),
     ],
