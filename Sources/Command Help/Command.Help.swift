@@ -2,7 +2,7 @@ public import Serializer
 
 extension Command {
 
-    public struct Help<Root: Command.`Protocol`>: Serializer.`Protocol` {
+    public struct Help<Root: Command.`Protocol`>: Serializer::Serializing {
 
         public typealias Output = Command.Schema.Definition<Root>
 

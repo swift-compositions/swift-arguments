@@ -106,7 +106,7 @@ extension Command.Schema {
                         root[keyPath: outer] = fragment
                         return true
                     },
-                    environment: option.declaration.environment
+                    environment: option.declaration.environment.map { Argument.Environment.Variable.Name($0) }
                 )
             )
         }

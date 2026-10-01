@@ -1,7 +1,7 @@
 import Command_Test_Support
 import Finite
 
-enum Operation: Argument.Flag.Enumerable {
+enum Operation: Argument.Flag.Enumerable, CaseIterable {
     case add
     case multiply
     case divide

@@ -27,7 +27,7 @@ extension Command.Option {
                 arity: arity,
                 visibility: visibility,
                 help: help,
-                environment: nil
+                environment: nil as Swift.String?
             )
             self.parse = { V(argument: $0) }
         }
@@ -50,7 +50,7 @@ extension Command.Option {
                 arity: arity,
                 visibility: visibility,
                 help: help,
-                environment: nil
+                environment: nil as Swift.String?
             )
             self.parse = { input in
                 do throws(Command.Error) {

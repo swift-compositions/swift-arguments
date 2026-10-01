@@ -222,7 +222,7 @@ extension Command.Schema.ParseVisitor: Command.Schema.Visitor {
                     root[keyPath: keyPath] = parsed
                     return true
                 },
-                environment: option.declaration.environment
+                environment: option.declaration.environment.map { Argument.Environment.Variable.Name($0) }
             )
         )
     }
@@ -852,7 +852,7 @@ extension Command.Schema.ParseVisitor {
     internal func position(from token: Argument.Token) -> Argument.Position {
         Argument.Position(
             argvIndex: .zero,
-            byteOffset: .init(fromZero: token.range.start)
+            byteOffset: .init(fromZero: token.range.start.retag(Byte.self))
         )
     }
 
