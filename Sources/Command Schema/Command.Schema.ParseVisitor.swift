@@ -892,18 +892,25 @@ extension Command.Schema.ParseVisitor {
     ) throws(Command.Error) {
 
         var argvIndex = 0
+        var endOfOptions = false
         while argvIndex < argv.count {
             let element = argv[argvIndex]
 
-            if element == "--help" || element == "-h" {
+            if !endOfOptions, element == "--" {
+                endOfOptions = true
+                argvIndex += 1
+                continue
+            }
+
+            if !endOfOptions, element == "--help" || element == "-h" {
                 throw .helpRequested
             }
 
-            if element == "--version", !rootVersion.isEmpty {
+            if !endOfOptions, element == "--version", !rootVersion.isEmpty {
                 throw .versionRequested(version: rootVersion)
             }
 
-            if element.hasPrefix("--") {
+            if !endOfOptions, element.hasPrefix("--") {
                 let trimmed = String(element.dropFirst(2))
                 let (name, inlineValue): (String, String?) = {
                     if let eq = trimmed.firstIndex(of: "=") {
@@ -1004,7 +1011,7 @@ extension Command.Schema.ParseVisitor {
                 )
             }
 
-            if element.hasPrefix("-") && element.count >= 2 {
+            if !endOfOptions, element.hasPrefix("-") && element.count >= 2 {
                 let cluster = String(element.dropFirst())
                 if cluster.count == 1 {
                     guard let firstChar = cluster.first else {
