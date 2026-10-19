@@ -29,10 +29,10 @@ struct Repeat: Command.`Protocol` {
                                 name: "phrase",
                                 help: .init(abstract: "The phrase to repeat."))
             Command.Option(\.count,
-                           name: .longLiteral("count"),
+                           name: .long(.literal("count")),
                            help: .init(abstract: "Number of repetitions."))
             Command.Flag(\.counter,
-                         name: .longLiteral("counter"),
+                         name: .long(.literal("counter")),
                          help: .init(abstract: "Include a counter with each repetition."))
         }
     }
@@ -87,7 +87,7 @@ The `.exit(code:message:)` case (D17) lets consumers thread custom exit codes th
 - **Single always-async protocol** — `Command.\`Protocol\`` has a single `mutating func run() async throws(Failure)` requirement; sync command bodies simply omit `await`. No separate `Command.Async.Protocol` (per the single-shape institute precedent of `Parser.\`Protocol\`` / `Serializer.\`Protocol\`` / `Coder.\`Protocol\``).
 - **POSIX 12.2 + GNU long-options** — the default tokenizer composes `IEEE_1003.UtilitySyntax.Tokenizer` (Chapter 12 short-flag syntax) with inline GNU long-option handling (`--name`, `--name=value`, `--name value`).
 - **Stdlib `Argument.Codable` conformances ship in** — `Int`, `UInt`, `Int32`, `Int64`, `Bool`, `Double`, `Float`, `String`, and `Optional<T: Argument.Codable>` all conform. Custom types add their own conformance to accept arbitrary value-typed arguments. `Optional` conformance lets schemas bind `T?`-typed properties directly — no sentinel-default workarounds.
-- **Declarative option names without `try` noise** — `.longLiteral("count")` / `.shortLiteral("v")` / `.bothLiteral(short:long:)` factories trap on validation failure (programmer error for literal names) so schema bodies compose without `try` at every option declaration. The throwing `Argument.Name.Long.init(_:)` remains the right surface for runtime-string construction.
+- **Declarative option names without `try` noise** — `.long(.literal("count"))` / `.short(.literal("v"))` / `.both(short: .literal("v"), long: .literal("verbose"))` take `Argument.Name.Long.literal(_:)` and `Argument.Name.Short.literal(_:)`, which trap on validation failure (programmer error for literal names), so schema bodies compose without `try` at every option declaration. The throwing `Argument.Name.Long.init(_:)` remains the right surface for runtime-string construction.
 - **Shared option groups via `Command.OptionGroup`** — factor common options (e.g., a global `--root` flag) into a fragment struct with its own `Command.Schema.Definition<Fragment>`, then splat it into each subcommand schema via `Command.OptionGroup(\.options, schema: Fragment.schema)`. Help text inlines the group's rows into the parent's OPTIONS section.
 - **Typed exit codes** — `Command.Error.exit(code:message:)` lets `run()` thread custom exit codes through the typed-throws path; the `@main` runner pattern-matches and terminates with the carried code. Tests `catch` the case and assert on it without unwrapping platform intrinsics.
 - **Foundation-free** — no `import Foundation` anywhere. The package compiles on platforms without a Foundation port.
