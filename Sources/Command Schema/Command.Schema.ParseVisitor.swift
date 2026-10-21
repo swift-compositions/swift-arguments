@@ -1,6 +1,5 @@
 internal import Index
 internal import Ordinal
-internal import Ordinal
 public import Tagged
 internal import Text
 
@@ -942,8 +941,7 @@ extension Command.Schema.ParseVisitor {
                     continue
                 }
 
-                if let manyIndex = optionManies.firstIndex(where: { $0.name.long?.string == name })
-                {
+                if let manyIndex = optionManies.firstIndex(where: { $0.name.long?.string == name }) {
                     let many = optionManies[manyIndex]
                     let valueString = try rootConsumeLongOptionValue(
                         name: "--\(name)",

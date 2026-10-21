@@ -67,8 +67,7 @@ extension Command {
         }
 
         @Test
-        func `Command.Positional.Many + transform: empty argv → empty array`() throws(Command.Error)
-        {
+        func `Command.Positional.Many + transform: empty argv → empty array`() throws(Command.Error) {
             let parsed = try Command.parse(
                 TransformedPositionalMany.self,
                 from: [],

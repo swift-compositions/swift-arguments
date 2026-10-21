@@ -27,8 +27,7 @@ extension Command {
         }
 
         @Test
-        func `-fvalue regression check — single-char glued form still works`() throws(Command.Error)
-        {
+        func `-fvalue regression check — single-char glued form still works`() throws(Command.Error) {
             let parsed = try Command.parse(
                 GluedShortOptionF.self,
                 from: ["-fvalue"],
