@@ -1,10 +1,10 @@
 # swift-arguments
 
-Use this package when you write a command-line tool and want argv parsed into a struct you own, with help text generated from the same declaration. Conform your command to `Command.Protocol`, declare its arguments once in a `Command.Schema.Definition`, and start it with `Command.main(_:initial:arguments:)`, or call `Command.parse(_:from:initial:)` to parse without running. Subcommands are cases of a `Command.Subcommand.Group`, and options shared by several commands go in a `Command.OptionGroup`. If you only need the argument vocabulary, such as names, arity and tokens, use swift-argument.
+Use this package when you write a command-line tool and want argv parsed into a struct you own, with help text generated from the same declaration. Conform your command to `` Command.`Protocol` ``, declare its arguments once in a `Command.Schema.Definition`, and start it with `Command.main(_:initial:arguments:)`, or call `Command.parse(_:from:initial:)` to parse without running. Subcommands are cases of a `Command.Subcommand.Group`, and options shared by several commands go in a `Command.OptionGroup`. If you only need the argument vocabulary, such as names, arity and tokens, use swift-argument.
 
 ## Laws
 
-- Parsing starts from the `initial` value you pass. Anything argv doesn't mention keeps its initial value. `Command.Protocol.validate()` runs after parsing, so it sees the final values.
+- Parsing starts from the `initial` value you pass. Anything argv doesn't mention keeps its initial value. ``Command.`Protocol`.validate()`` runs after parsing, so it sees the final values.
 - `--name value` and `--name=value` are the same. A value option takes the next argument whatever it is, unless that argument is another option. After `--`, every argument is positional.
 - `-fvalue` gives the value to `-f` only if `-f` takes a value. Otherwise the letters are a cluster of flags, so `-vvv` counts three. A cluster can only hold flags and counted flags.
 - An argument like `-5` or `-3.14` is a positional value when a positional is still open and no short option is named after that digit.
