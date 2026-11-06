@@ -100,8 +100,8 @@ let package = Package(
         .target(
             name: "Command Core",
             dependencies: [
-                "Command Primitive",
-                "Arguments",
+                .target(name: "Command Primitive"),
+                .target(name: "Arguments"),
                 .product(name: "Argument", package: "swift-argument"),
                 .product(name: "Text", package: "swift-text"),
                 .product(name: "Ordinal", package: "swift-ordinal"),
@@ -115,8 +115,8 @@ let package = Package(
         .target(
             name: "Command Schema",
             dependencies: [
-                "Command Core",
-                "Arguments",
+                .target(name: "Command Core"),
+                .target(name: "Arguments"),
                 .product(name: "Argument", package: "swift-argument"),
                 .product(name: "Index", package: "swift-index"),
                 .product(name: "Ordinal", package: "swift-ordinal"),
@@ -129,7 +129,7 @@ let package = Package(
         .target(
             name: "Command Help",
             dependencies: [
-                "Command Schema",
+                .target(name: "Command Schema"),
                 .product(name: "Serializer", package: "swift-serializer"),
             ]
         ),
@@ -137,9 +137,9 @@ let package = Package(
         .target(
             name: "Command Runner",
             dependencies: [
-                "Command Core",
-                "Command Schema",
-                "Command Help",
+                .target(name: "Command Core"),
+                .target(name: "Command Schema"),
+                .target(name: "Command Help"),
                 .product(name: "Process", package: "swift-process"),
             ]
         ),
@@ -147,19 +147,19 @@ let package = Package(
         .target(
             name: "Command",
             dependencies: [
-                "Command Primitive",
-                "Command Core",
-                "Command Schema",
-                "Command Help",
-                "Command Runner",
-                "Arguments",
+                .target(name: "Command Primitive"),
+                .target(name: "Command Core"),
+                .target(name: "Command Schema"),
+                .target(name: "Command Help"),
+                .target(name: "Command Runner"),
+                .target(name: "Arguments"),
             ]
         ),
 
         .target(
             name: "Command Test Support",
             dependencies: [
-                "Command",
+                .target(name: "Command"),
                 .product(
                     name: "Argument Test Support",
                     package: "swift-argument"
@@ -173,34 +173,34 @@ let package = Package(
 
         .executableTarget(
             name: "command-runner-helper",
-            dependencies: ["Command"],
+            dependencies: [.target(name: "Command")],
             path: "Tests/Support/Runner Helper"
         ),
 
         .testTarget(
             name: "Command Core Tests",
-            dependencies: ["Command Test Support"]
+            dependencies: [.target(name: "Command Test Support")]
         ),
         .testTarget(
             name: "Command Schema Tests",
-            dependencies: ["Command Test Support"]
+            dependencies: [.target(name: "Command Test Support")]
         ),
         .testTarget(
             name: "Command Help Tests",
-            dependencies: ["Command Test Support"]
+            dependencies: [.target(name: "Command Test Support")]
         ),
         .testTarget(
             name: "Command Integration Tests",
             dependencies: [
-                "Command Test Support",
+                .target(name: "Command Test Support"),
 
-                "command-runner-helper",
+                .target(name: "command-runner-helper"),
                 .product(name: "Process", package: "swift-process"),
             ]
         ),
         .testTarget(
             name: "Arguments Tests",
-            dependencies: ["Command Test Support"]
+            dependencies: [.target(name: "Command Test Support")]
         ),
     ],
     swiftLanguageModes: [.v6]
