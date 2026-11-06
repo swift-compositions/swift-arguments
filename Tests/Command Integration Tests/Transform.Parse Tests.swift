@@ -2,7 +2,7 @@ import Testing
 
 @testable import Command_Test_Support
 
-extension Command {
+extension `Command Tests` {
     @Suite
     struct Transform {
 

@@ -2,7 +2,7 @@ import Testing
 
 @testable import Command_Test_Support
 
-extension Command {
+extension `Command Tests` {
     @Suite
     struct `Glued Short Option` {
 
@@ -38,7 +38,7 @@ extension Command {
     }
 }
 
-extension Command {
+extension `Command Tests` {
     @Suite
     struct `Negative Number Positional` {
 
@@ -77,7 +77,9 @@ extension Command {
     }
 }
 
-extension Command.Diagnostic.Suggestion {
+enum `Command.Diagnostic.Suggestion Tests` {}
+
+extension `Command.Diagnostic.Suggestion Tests` {
     @Suite
     struct Test {
 

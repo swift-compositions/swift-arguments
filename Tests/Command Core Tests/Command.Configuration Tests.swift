@@ -2,7 +2,9 @@ import Testing
 
 @testable import Command_Test_Support
 
-extension Command.Configuration {
+enum `Command.Configuration Tests` {}
+
+extension `Command.Configuration Tests` {
     @Suite
     struct Test {
 
@@ -34,7 +36,9 @@ extension Command.Configuration {
     }
 }
 
-extension Command.Exit {
+enum `Command.Exit Tests` {}
+
+extension `Command.Exit Tests` {
     @Suite
     struct Test {
 

@@ -2,7 +2,9 @@ import Testing
 
 @testable import Command_Test_Support
 
-extension Command {
+enum `Command Tests` {}
+
+extension `Command Tests` {
     @Suite
     struct `Environment Variable` {
 

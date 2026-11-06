@@ -2,7 +2,9 @@ import Testing
 
 @testable import Command_Test_Support
 
-extension Command.Error {
+enum `Command.Error Tests` {}
+
+extension `Command.Error Tests` {
     @Suite
     struct Test {
 

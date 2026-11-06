@@ -87,7 +87,9 @@ extension VersionedParent {
     mutating func run() async throws(Command.Error) {}
 }
 
-extension Command.Configuration {
+enum `Command.Configuration Tests` {}
+
+extension `Command.Configuration Tests` {
     @Suite
     struct Version {
 

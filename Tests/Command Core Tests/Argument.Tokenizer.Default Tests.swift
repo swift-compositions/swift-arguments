@@ -2,7 +2,9 @@ import Testing
 
 @testable import Command_Test_Support
 
-extension Argument.Tokenizer.Default {
+enum `Argument.Tokenizer.Default Tests` {}
+
+extension `Argument.Tokenizer.Default Tests` {
     @Suite
     struct Test {
 

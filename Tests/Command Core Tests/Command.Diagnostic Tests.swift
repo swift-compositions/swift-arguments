@@ -2,7 +2,9 @@ import Testing
 
 @testable import Command_Test_Support
 
-extension Command.Diagnostic {
+enum `Command.Diagnostic Tests` {}
+
+extension `Command.Diagnostic Tests` {
     @Suite
     struct Test {
         @Test
@@ -49,7 +51,7 @@ extension Command.Diagnostic {
     }
 }
 
-extension Command.Diagnostic.Test {
+extension `Command.Diagnostic Tests`.Test {
     @Suite
     struct `Exit Code` {
         @Test
