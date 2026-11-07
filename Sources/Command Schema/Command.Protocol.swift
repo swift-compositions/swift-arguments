@@ -13,11 +13,3 @@ extension Command {
         mutating func run() async throws(Failure)
     }
 }
-
-extension Command.`Protocol` {
-
-    @inlinable
-    public mutating func validate() throws(Command.Error) {
-
-    }
-}
