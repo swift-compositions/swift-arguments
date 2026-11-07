@@ -5,7 +5,7 @@ extension Command.Diagnostic {
 
 extension Command.Diagnostic.Suggestion {
 
-    public static func closest<S: Sequence>(
+    public static func closest<S: Swift.Sequence>(
         to query: String,
         among candidates: S
     ) -> String? where S.Element == String {

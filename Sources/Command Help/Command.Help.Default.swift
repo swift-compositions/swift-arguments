@@ -32,7 +32,7 @@ extension Command.HelpDefault {
             return optional._unwrapped.map { Swift.String(describing: $0) }
         }
 
-        if let collection = value as? (any Collection), collection.isEmpty {
+        if let collection = value as? (any Swift.Collection), collection.isEmpty {
             return nil
         }
 
