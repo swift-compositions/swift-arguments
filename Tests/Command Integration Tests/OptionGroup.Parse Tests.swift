@@ -2,102 +2,106 @@ import Testing
 
 @testable import Command_Test_Support
 
-@Suite
-struct `Command.OptionGroup Parse Tests` {
+enum `OptionGroup.Parse Tests` {}
 
-    @Test
-    func `Flat schema parses --root option through OptionGroup`() throws(Command.Error) {
-        let parsed = try Command.parse(
-            OGFlat.self,
-            from: ["--root", "/tmp", "myname"],
-            initial: OGFlat()
-        )
-        #expect(parsed.options.root == "/tmp")
-        #expect(parsed.name == "myname")
-    }
+extension `OptionGroup.Parse Tests` {
+    @Suite
+    struct `Command.OptionGroup Parse Tests` {
 
-    @Test
-    func `Flat schema retains default when --root is absent`() throws(Command.Error) {
-        let parsed = try Command.parse(
-            OGFlat.self,
-            from: ["myname"],
-            initial: OGFlat()
-        )
-        #expect(parsed.options.root == ".")
-        #expect(parsed.name == "myname")
-    }
-
-    @Test
-    func `Flat schema honors --root=value form via OptionGroup`() throws(Command.Error) {
-        let parsed = try Command.parse(
-            OGFlat.self,
-            from: ["--root=/usr/src", "x"],
-            initial: OGFlat()
-        )
-        #expect(parsed.options.root == "/usr/src")
-    }
-
-    @Test
-    func `Build subcommand parses shared --root via OptionGroup`() throws(Command.Error) {
-        let parsed = try Command.parse(
-            OGCLI.self,
-            from: ["build", "--root", "/tmp/proj", "MyTarget"],
-            initial: .build(.init())
-        )
-        guard case .build(let build) = parsed else {
-            Issue.record("Expected .build case, got \(parsed)")
-            return
-        }
-        #expect(build.options.root == "/tmp/proj")
-        #expect(build.target == "MyTarget")
-    }
-
-    @Test
-    func `Test subcommand parses same shared --root via OptionGroup`() throws(Command.Error) {
-        let parsed = try Command.parse(
-            OGCLI.self,
-            from: ["test", "--root", "/tmp/proj", "MyFilter"],
-            initial: .test(.init())
-        )
-        guard case .test(let test) = parsed else {
-            Issue.record("Expected .test case, got \(parsed)")
-            return
-        }
-        #expect(test.options.root == "/tmp/proj")
-        #expect(test.filter == "MyFilter")
-    }
-
-    @Test
-    func `Build subcommand without --root retains shared default`() throws(Command.Error) {
-        let parsed = try Command.parse(
-            OGCLI.self,
-            from: ["build", "TargetX"],
-            initial: .build(.init())
-        )
-        guard case .build(let build) = parsed else {
-            Issue.record("Expected .build case, got \(parsed)")
-            return
-        }
-        #expect(build.options.root == ".")
-        #expect(build.target == "TargetX")
-    }
-
-    @Test
-    func `Unknown option through OptionGroup surfaces .unknownLongOption`() {
-        do throws(Command.Error) {
-            _ = try Command.parse(
+        @Test
+        func `Flat schema parses --root option through OptionGroup`() throws(Command.Error) {
+            let parsed = try Command.parse(
                 OGFlat.self,
-                from: ["--unknown", "x", "myname"],
+                from: ["--root", "/tmp", "myname"],
                 initial: OGFlat()
             )
-            Issue.record("Expected unknownLongOption, parse succeeded")
-        } catch {
-            switch error {
-            case .unknownLongOption:
-                break
+            #expect(parsed.options.root == "/tmp")
+            #expect(parsed.name == "myname")
+        }
 
-            default:
-                Issue.record("Expected unknownLongOption, got \(error)")
+        @Test
+        func `Flat schema retains default when --root is absent`() throws(Command.Error) {
+            let parsed = try Command.parse(
+                OGFlat.self,
+                from: ["myname"],
+                initial: OGFlat()
+            )
+            #expect(parsed.options.root == ".")
+            #expect(parsed.name == "myname")
+        }
+
+        @Test
+        func `Flat schema honors --root=value form via OptionGroup`() throws(Command.Error) {
+            let parsed = try Command.parse(
+                OGFlat.self,
+                from: ["--root=/usr/src", "x"],
+                initial: OGFlat()
+            )
+            #expect(parsed.options.root == "/usr/src")
+        }
+
+        @Test
+        func `Build subcommand parses shared --root via OptionGroup`() throws(Command.Error) {
+            let parsed = try Command.parse(
+                OGCLI.self,
+                from: ["build", "--root", "/tmp/proj", "MyTarget"],
+                initial: .build(.init())
+            )
+            guard case .build(let build) = parsed else {
+                Issue.record("Expected .build case, got \(parsed)")
+                return
+            }
+            #expect(build.options.root == "/tmp/proj")
+            #expect(build.target == "MyTarget")
+        }
+
+        @Test
+        func `Test subcommand parses same shared --root via OptionGroup`() throws(Command.Error) {
+            let parsed = try Command.parse(
+                OGCLI.self,
+                from: ["test", "--root", "/tmp/proj", "MyFilter"],
+                initial: .test(.init())
+            )
+            guard case .test(let test) = parsed else {
+                Issue.record("Expected .test case, got \(parsed)")
+                return
+            }
+            #expect(test.options.root == "/tmp/proj")
+            #expect(test.filter == "MyFilter")
+        }
+
+        @Test
+        func `Build subcommand without --root retains shared default`() throws(Command.Error) {
+            let parsed = try Command.parse(
+                OGCLI.self,
+                from: ["build", "TargetX"],
+                initial: .build(.init())
+            )
+            guard case .build(let build) = parsed else {
+                Issue.record("Expected .build case, got \(parsed)")
+                return
+            }
+            #expect(build.options.root == ".")
+            #expect(build.target == "TargetX")
+        }
+
+        @Test
+        func `Unknown option through OptionGroup surfaces .unknownLongOption`() {
+            do throws(Command.Error) {
+                _ = try Command.parse(
+                    OGFlat.self,
+                    from: ["--unknown", "x", "myname"],
+                    initial: OGFlat()
+                )
+                Issue.record("Expected unknownLongOption, parse succeeded")
+            } catch {
+                switch error {
+                case .unknownLongOption:
+                    break
+
+                default:
+                    Issue.record("Expected unknownLongOption, got \(error)")
+                }
             }
         }
     }

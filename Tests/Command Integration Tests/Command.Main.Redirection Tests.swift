@@ -160,55 +160,59 @@ extension HelperProcess {
     }
 }
 
-@Suite
-struct `Command.main redirected-output Tests` {
+enum `Command.Main.Redirection Tests` {}
 
-    @Test
-    func `Successful run writes its output when stdout is a pipe`() throws {
-        let output = try #require(HelperProcess.run(["hello"]), "\(HelperProcess.notFoundMessage)")
-        #expect(output.status == .exited(code: 0))
-        #expect(HelperProcess.stdoutText(output).contains("HELPER-BEGIN hello HELPER-END"))
-    }
+extension `Command.Main.Redirection Tests` {
+    @Suite
+    struct `Command.main redirected-output Tests` {
 
-    @Test
-    func `Help output is not discarded when stdout is a pipe`() throws {
-        let output = try #require(HelperProcess.run(["--help"]), "\(HelperProcess.notFoundMessage)")
-        #expect(output.status == .exited(code: 0))
-        let text = HelperProcess.stdoutText(output)
-        #expect(!text.isEmpty)
-        #expect(text.contains("USAGE:"))
-        #expect(text.contains("command-runner-helper"))
-    }
+        @Test
+        func `Successful run writes its output when stdout is a pipe`() throws {
+            let output = try #require(HelperProcess.run(["hello"]), "\(HelperProcess.notFoundMessage)")
+            #expect(output.status == .exited(code: 0))
+            #expect(HelperProcess.stdoutText(output).contains("HELPER-BEGIN hello HELPER-END"))
+        }
 
-    @Test
-    func `Unknown-option diagnostic is not discarded when stdout is a pipe`() throws {
-        let output = try #require(
-            HelperProcess.run(["--bogusflag"]),
-            "\(HelperProcess.notFoundMessage)"
-        )
-        #expect(output.status == .exited(code: 64))
-        #expect(HelperProcess.stdoutText(output).contains("--bogusflag"))
-    }
+        @Test
+        func `Help output is not discarded when stdout is a pipe`() throws {
+            let output = try #require(HelperProcess.run(["--help"]), "\(HelperProcess.notFoundMessage)")
+            #expect(output.status == .exited(code: 0))
+            let text = HelperProcess.stdoutText(output)
+            #expect(!text.isEmpty)
+            #expect(text.contains("USAGE:"))
+            #expect(text.contains("command-runner-helper"))
+        }
 
-    @Test
-    func `Missing-argument diagnostic is not discarded when stdout is a pipe`() throws {
-        let output = try #require(HelperProcess.run([]), "\(HelperProcess.notFoundMessage)")
-        #expect(output.status == .exited(code: 64))
-        #expect(HelperProcess.stdoutText(output).contains("phrase"))
-    }
-
-    @Test
-    func `Every exit path writes a non-empty stdout when redirected`() throws {
-
-        for arguments in [["hello"], ["--help"], ["--bogusflag"], []] {
+        @Test
+        func `Unknown-option diagnostic is not discarded when stdout is a pipe`() throws {
             let output = try #require(
-                HelperProcess.run(arguments),
-                "argv \(arguments): \(HelperProcess.notFoundMessage)"
+                HelperProcess.run(["--bogusflag"]),
+                "\(HelperProcess.notFoundMessage)"
             )
-            #expect(
-                !(output.stdout ?? []).isEmpty,
-                "argv \(arguments) wrote zero bytes to a piped stdout"
-            )
+            #expect(output.status == .exited(code: 64))
+            #expect(HelperProcess.stdoutText(output).contains("--bogusflag"))
+        }
+
+        @Test
+        func `Missing-argument diagnostic is not discarded when stdout is a pipe`() throws {
+            let output = try #require(HelperProcess.run([]), "\(HelperProcess.notFoundMessage)")
+            #expect(output.status == .exited(code: 64))
+            #expect(HelperProcess.stdoutText(output).contains("phrase"))
+        }
+
+        @Test
+        func `Every exit path writes a non-empty stdout when redirected`() throws {
+
+            for arguments in [["hello"], ["--help"], ["--bogusflag"], []] {
+                let output = try #require(
+                    HelperProcess.run(arguments),
+                    "argv \(arguments): \(HelperProcess.notFoundMessage)"
+                )
+                #expect(
+                    !(output.stdout ?? []).isEmpty,
+                    "argv \(arguments) wrote zero bytes to a piped stdout"
+                )
+            }
         }
     }
 }

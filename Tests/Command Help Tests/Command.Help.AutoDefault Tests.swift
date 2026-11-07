@@ -52,81 +52,85 @@ extension OptionalIntFixture {
     mutating func run() async throws(Command.Error) {}
 }
 
-@Suite
-struct `Command.Help AutoDefault Tests` {
+enum `Command.Help.AutoDefault Tests` {}
 
-    @Test
-    func `Int default auto-derived for Option`() {
-        var buffer = ""
-        Command.Help<AutoDefaultFixture>().serialize(
-            AutoDefaultFixture.schema,
-            into: &buffer,
-            initial: AutoDefaultFixture()
-        )
-        #expect(buffer.contains("--count <count>"))
-        #expect(buffer.contains("(default: 7)"))
-    }
+extension `Command.Help.AutoDefault Tests` {
+    @Suite
+    struct `Command.Help AutoDefault Tests` {
 
-    @Test
-    func `String default auto-derived for Positional`() {
-        var buffer = ""
-        Command.Help<AutoDefaultFixture>().serialize(
-            AutoDefaultFixture.schema,
-            into: &buffer,
-            initial: AutoDefaultFixture(phrase: "hello")
-        )
+        @Test
+        func `Int default auto-derived for Option`() {
+            var buffer = ""
+            Command.Help<AutoDefaultFixture>().serialize(
+                AutoDefaultFixture.schema,
+                into: &buffer,
+                initial: AutoDefaultFixture()
+            )
+            #expect(buffer.contains("--count <count>"))
+            #expect(buffer.contains("(default: 7)"))
+        }
 
-        #expect(buffer.contains("<phrase>"))
-        #expect(buffer.contains("(default: hello)"))
-    }
+        @Test
+        func `String default auto-derived for Positional`() {
+            var buffer = ""
+            Command.Help<AutoDefaultFixture>().serialize(
+                AutoDefaultFixture.schema,
+                into: &buffer,
+                initial: AutoDefaultFixture(phrase: "hello")
+            )
 
-    @Test
-    func `Bool flag default NOT rendered`() {
-        var buffer = ""
-        Command.Help<AutoDefaultFixture>().serialize(
-            AutoDefaultFixture.schema,
-            into: &buffer,
-            initial: AutoDefaultFixture(counter: true)
-        )
+            #expect(buffer.contains("<phrase>"))
+            #expect(buffer.contains("(default: hello)"))
+        }
 
-        #expect(buffer.contains("--counter"))
-        #expect(!buffer.contains("(default: true)"))
-        #expect(!buffer.contains("(default: false)"))
-    }
+        @Test
+        func `Bool flag default NOT rendered`() {
+            var buffer = ""
+            Command.Help<AutoDefaultFixture>().serialize(
+                AutoDefaultFixture.schema,
+                into: &buffer,
+                initial: AutoDefaultFixture(counter: true)
+            )
 
-    @Test
-    func `Optional<Int> nil-default rendered with no default line`() {
-        var buffer = ""
-        Command.Help<OptionalIntFixture>().serialize(
-            OptionalIntFixture.schema,
-            into: &buffer,
-            initial: OptionalIntFixture(port: nil)
-        )
-        #expect(buffer.contains("--port"))
-        #expect(!buffer.contains("(default:"))
-    }
+            #expect(buffer.contains("--counter"))
+            #expect(!buffer.contains("(default: true)"))
+            #expect(!buffer.contains("(default: false)"))
+        }
 
-    @Test
-    func `Optional<Int> some(8080) renders default 8080`() {
-        var buffer = ""
-        Command.Help<OptionalIntFixture>().serialize(
-            OptionalIntFixture.schema,
-            into: &buffer,
-            initial: OptionalIntFixture(port: 8080)
-        )
-        #expect(buffer.contains("--port"))
-        #expect(buffer.contains("(default: 8080)"))
-    }
+        @Test
+        func `Optional<Int> nil-default rendered with no default line`() {
+            var buffer = ""
+            Command.Help<OptionalIntFixture>().serialize(
+                OptionalIntFixture.schema,
+                into: &buffer,
+                initial: OptionalIntFixture(port: nil)
+            )
+            #expect(buffer.contains("--port"))
+            #expect(!buffer.contains("(default:"))
+        }
 
-    @Test
-    func `No-initial overload preserves v1.0.15 behavior — no auto-default`() {
-        var buffer = ""
-        Command.Help<AutoDefaultFixture>().serialize(
-            AutoDefaultFixture.schema,
-            into: &buffer
-        )
+        @Test
+        func `Optional<Int> some(8080) renders default 8080`() {
+            var buffer = ""
+            Command.Help<OptionalIntFixture>().serialize(
+                OptionalIntFixture.schema,
+                into: &buffer,
+                initial: OptionalIntFixture(port: 8080)
+            )
+            #expect(buffer.contains("--port"))
+            #expect(buffer.contains("(default: 8080)"))
+        }
 
-        #expect(buffer.contains("--count <count>"))
-        #expect(!buffer.contains("(default: 7)"))
+        @Test
+        func `No-initial overload preserves v1.0.15 behavior — no auto-default`() {
+            var buffer = ""
+            Command.Help<AutoDefaultFixture>().serialize(
+                AutoDefaultFixture.schema,
+                into: &buffer
+            )
+
+            #expect(buffer.contains("--count <count>"))
+            #expect(!buffer.contains("(default: 7)"))
+        }
     }
 }
