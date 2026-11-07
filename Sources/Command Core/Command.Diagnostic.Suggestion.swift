@@ -1,10 +1,8 @@
 extension Command.Diagnostic {
-
     public enum Suggestion: Sendable {}
 }
 
 extension Command.Diagnostic.Suggestion {
-
     public static func closest<S: Swift.Sequence>(
         to query: String,
         among candidates: S
@@ -38,7 +36,7 @@ extension Command.Diagnostic.Suggestion {
         var previous = Array(0...shortCount)
         var current = Array(repeating: 0, count: shortCount + 1)
 
-        for i in 1...longCount {
+        (1...longCount).forEach { i in
             current[0] = i
             for j in 1...shortCount {
                 let cost = longChars[i - 1] == shortChars[j - 1] ? 0 : 1
