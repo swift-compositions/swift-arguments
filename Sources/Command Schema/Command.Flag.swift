@@ -2,8 +2,6 @@ extension Command {
 
     public struct Flag<Root>: Sendable where Root: Sendable {
 
-        public typealias BoundRoot = Root
-
         public let keyPath: any WritableKeyPath<Root, Bool> & Sendable
 
         public let declaration: Argument.Flag
@@ -25,4 +23,9 @@ extension Command {
             )
         }
     }
+}
+
+extension Command.Flag {
+
+    public typealias BoundRoot = Root
 }
