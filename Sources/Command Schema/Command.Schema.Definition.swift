@@ -1,5 +1,7 @@
 extension Command.Schema {
+
     public struct Definition<Root: Sendable>: Sendable {
+
         public let nodes: [any Command.Schema.Node<Root>]
 
         @inlinable
@@ -11,16 +13,14 @@ extension Command.Schema {
         public init(@Command.Builder<Root> _ build: () -> [any Command.Schema.Node<Root>]) {
             self.nodes = build()
         }
-    }
-}
 
-extension Command.Schema.Definition {
-    @inlinable
-    public func accept<Visitor: Command.Schema.Visitor>(
-        _ visitor: inout Visitor
-    ) throws(Visitor.Failure) where Visitor.Root == Root {
-        for node in nodes {
-            try node.accept(&visitor)
+        @inlinable
+        public func accept<Visitor: Command.Schema.Visitor>(
+            _ visitor: inout Visitor
+        ) throws(Visitor.Failure) where Visitor.Root == Root {
+            for node in nodes {
+                try node.accept(&visitor)
+            }
         }
     }
 }
