@@ -42,10 +42,6 @@ extension Command.Subcommand.HelpDefault {
     }
 }
 
-@usableFromInline
-internal protocol _SubcommandOptionalConvertible {
-    var _unwrapped: Any? { get }
-}
 
 extension Optional: _SubcommandOptionalConvertible {
     @usableFromInline
