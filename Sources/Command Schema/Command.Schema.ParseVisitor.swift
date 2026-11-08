@@ -79,6 +79,87 @@ extension Command.Schema {
 }
 
 extension Command.Schema.ParseVisitor {
+
+    @usableFromInline
+    internal struct PositionalEntry: Sendable {
+
+        @usableFromInline let name: String
+
+        @usableFromInline let apply: @Sendable (String, inout Root) -> Bool
+    }
+
+    @usableFromInline
+    internal struct PositionalManyEntry: Sendable {
+
+        @usableFromInline let name: String
+
+        @usableFromInline let arity: Argument.Arity
+
+        @usableFromInline let append: @Sendable (String, inout Root) -> Bool
+
+        @usableFromInline let count: @Sendable (Root) -> Int
+    }
+
+    @usableFromInline
+    internal struct OptionEntry: Sendable {
+
+        @usableFromInline let name: Argument.Name
+
+        @usableFromInline let apply: @Sendable (String, inout Root) -> Bool
+
+        @usableFromInline let environment: Argument.Environment.Variable.Name?
+    }
+
+    @usableFromInline
+    internal struct OptionManyEntry: Sendable {
+
+        @usableFromInline let name: Argument.Name
+
+        @usableFromInline let arity: Argument.Arity
+
+        @usableFromInline let append: @Sendable (String, inout Root) -> Bool
+
+        @usableFromInline let count: @Sendable (Root) -> Int
+    }
+
+    @usableFromInline
+    internal struct FlagEntry: Sendable {
+
+        @usableFromInline let name: Argument.Name
+
+        @usableFromInline let apply: @Sendable (inout Root) -> Void
+    }
+
+    @usableFromInline
+    internal struct FlagCountEntry: Sendable {
+
+        @usableFromInline let name: Argument.Name
+
+        @usableFromInline let increment: @Sendable (inout Root) -> Void
+    }
+
+    @usableFromInline
+    internal struct FlagInvertedEntry: Sendable {
+
+        @usableFromInline let trueName: String
+
+        @usableFromInline let falseName: String
+
+        @usableFromInline let apply: @Sendable (Bool, inout Root) -> Void
+    }
+
+    @usableFromInline
+    internal struct FlagEnumerableEntry: Sendable {
+
+        @usableFromInline let casesByLongName: [String: @Sendable (inout Root) -> Void]
+    }
+
+    @usableFromInline
+    internal struct SubcommandGroupEntry: Sendable {
+
+        @usableFromInline let bindings: [any Command.Subcommand.Binding<Root>]
+    }
+
 }
 
 extension Command.Schema.ParseVisitor: Command.Schema.Visitor {
