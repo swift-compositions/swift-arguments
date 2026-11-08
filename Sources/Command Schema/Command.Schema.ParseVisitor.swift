@@ -2,6 +2,7 @@ internal import Index
 internal import Ordinal
 public import Tagged
 internal import Text
+internal import Environment
 
 extension Command.Schema {
 
@@ -1215,5 +1216,13 @@ extension Command.Schema.ParseVisitor {
         let value = argv[argvIndex + 1]
         argvIndex += 2
         return value
+    }
+}
+
+extension Command.Schema.ParseVisitor {
+
+    @usableFromInline
+    internal static func readEnvironmentVariable(_ name: Swift.String) -> Swift.String? {
+        Environment.task.read(name)
     }
 }
