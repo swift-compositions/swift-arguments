@@ -1,6 +1,6 @@
 import Command_Test_Support
 
-private struct RootLevelGroupChild: Command.`Protocol`, Equatable {
+struct RootLevelGroupChild: Command.`Protocol`, Equatable {
 }
 
 extension RootLevelGroupChild {

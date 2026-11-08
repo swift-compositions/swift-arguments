@@ -16,7 +16,7 @@ extension SharedRootOptions {
     }
 }
 
-private struct OGBuild: Command.`Protocol`, Equatable {
+struct OGBuild: Command.`Protocol`, Equatable {
     var options: SharedRootOptions = .init()
     var target: String = ""
 }
@@ -36,7 +36,7 @@ extension OGBuild {
     mutating func run() async throws(Command.Error) {}
 }
 
-private struct OGTest: Command.`Protocol`, Equatable {
+struct OGTest: Command.`Protocol`, Equatable {
     var options: SharedRootOptions = .init()
     var filter: String = ""
 }

@@ -77,7 +77,7 @@ extension `Command Tests` {
     }
 }
 
-private struct EnvCounted: Command.`Protocol`, Equatable {
+struct EnvCounted: Command.`Protocol`, Equatable {
     var phrase: String = ""
     var count: Int = 2
 }
@@ -105,7 +105,7 @@ extension EnvCounted {
     mutating func run() async throws(Command.Error) {}
 }
 
-private struct EnvGroupFragment: Sendable, Equatable {
+struct EnvGroupFragment: Sendable, Equatable {
     var verbose: Bool = false
     var output: String = "default"
 }
@@ -122,7 +122,7 @@ extension EnvGroupFragment {
     }
 }
 
-private struct EnvGrouped: Command.`Protocol`, Equatable {
+struct EnvGrouped: Command.`Protocol`, Equatable {
     var options: EnvGroupFragment = .init()
     var target: String = ""
 }
