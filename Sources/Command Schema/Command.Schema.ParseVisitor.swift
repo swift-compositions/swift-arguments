@@ -155,7 +155,7 @@ extension Command.Schema.ParseVisitor {
     }
 
     @usableFromInline
-    internal struct SubcommandGroupEntry: Sendable {
+    fileprivate struct SubcommandGroupEntry: Sendable {
 
         @usableFromInline let bindings: [any Command.Subcommand.Binding<Root>]
     }
