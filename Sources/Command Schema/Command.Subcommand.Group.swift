@@ -21,7 +21,7 @@ extension Command.Subcommand {
 
 extension Command.Subcommand.Group {
     @inlinable
-    package static func checkAtMostOneDefault(
+    static func checkAtMostOneDefault(
         _ bindings: [any Command.Subcommand.Binding<Root>]
     ) {
         let defaults = bindings.filter(\.isDefault)
