@@ -38,7 +38,7 @@ extension Command.Diagnostic.Suggestion {
 
         (1...longCount).forEach { i in
             current[0] = i
-            for j in 1...shortCount {
+            (1...shortCount).forEach { j in
                 let cost = longChars[i - 1] == shortChars[j - 1] ? 0 : 1
                 let deletion = previous[j] + 1
                 let insertion = current[j - 1] + 1
