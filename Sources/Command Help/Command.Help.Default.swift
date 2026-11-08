@@ -46,7 +46,6 @@ extension Command.HelpDefault {
     }
 }
 
-
 extension Optional: _OptionalConvertible {
     @usableFromInline
     internal var _unwrapped: Any? {

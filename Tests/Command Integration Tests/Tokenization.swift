@@ -157,7 +157,7 @@ extension BuildOptionCommand {
     mutating func run() async throws(Command.Error) {}
 }
 
-fileprivate struct GitSuggestClone: Command.`Protocol`, Equatable {}
+private struct GitSuggestClone: Command.`Protocol`, Equatable {}
 
 extension GitSuggestClone {
     static var configuration: Command.Configuration {
@@ -171,7 +171,7 @@ extension GitSuggestClone {
     mutating func run() async throws(Command.Error) {}
 }
 
-fileprivate struct GitSuggestCommit: Command.`Protocol`, Equatable {}
+private struct GitSuggestCommit: Command.`Protocol`, Equatable {}
 
 extension GitSuggestCommit {
     static var configuration: Command.Configuration {
@@ -185,7 +185,7 @@ extension GitSuggestCommit {
     mutating func run() async throws(Command.Error) {}
 }
 
-fileprivate struct GitSuggestCheckout: Command.`Protocol`, Equatable {}
+private struct GitSuggestCheckout: Command.`Protocol`, Equatable {}
 
 extension GitSuggestCheckout {
     static var configuration: Command.Configuration {

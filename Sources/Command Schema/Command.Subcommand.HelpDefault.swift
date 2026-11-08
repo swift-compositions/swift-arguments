@@ -42,7 +42,6 @@ extension Command.Subcommand.HelpDefault {
     }
 }
 
-
 extension Optional: _SubcommandOptionalConvertible {
     @usableFromInline
     internal var _unwrapped: Any? {
