@@ -201,6 +201,22 @@ extension `Command.Main.Redirection Tests` {
         }
 
         @Test
+        func `Command.Error.exit thrown from run keeps its exit code and message`() throws {
+            let output = try #require(HelperProcess.run(["exit-3"]), "\(HelperProcess.notFoundMessage)")
+            #expect(output.status == .exited(code: 3))
+            let text = HelperProcess.stdoutText(output)
+            #expect(text.contains("HELPER-EXIT-3"))
+            #expect(!text.contains("HELPER-BEGIN"))
+        }
+
+        @Test
+        func `Command.Error thrown from run exits with its diagnostic exit code`() throws {
+            let output = try #require(HelperProcess.run(["invalid"]), "\(HelperProcess.notFoundMessage)")
+            #expect(output.status == .exited(code: 64))
+            #expect(HelperProcess.stdoutText(output).contains("Error: HELPER-INVALID"))
+        }
+
+        @Test
         func `Every exit path writes a non-empty stdout when redirected`() throws {
 
             for arguments in [["hello"], ["--help"], ["--bogusflag"], []] {

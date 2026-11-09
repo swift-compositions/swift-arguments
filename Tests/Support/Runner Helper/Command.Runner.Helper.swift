@@ -23,6 +23,12 @@ extension Helper {
     }
 
     mutating func run() async throws(Command.Error) {
+        if phrase == "exit-3" {
+            throw .exit(code: 3, message: "HELPER-EXIT-3")
+        }
+        if phrase == "invalid" {
+            throw .validationFailed(reason: "HELPER-INVALID")
+        }
         print("HELPER-BEGIN \(phrase) HELPER-END")
     }
 }

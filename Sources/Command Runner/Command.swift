@@ -25,7 +25,13 @@ extension Command {
             do throws(C.Failure) {
                 try await root.run()
             } catch {
-
+                if let commandError = error as? Command.Error {
+                    let message = Self.Diagnostic.message(for: commandError)
+                    if !message.isEmpty {
+                        print(message)
+                    }
+                    Process.Exit.normal(Self.Diagnostic.exitCode(for: commandError))
+                }
                 print("Error: \(Swift.String(describing: error))")
                 Process.Exit.normal(1)
             }
