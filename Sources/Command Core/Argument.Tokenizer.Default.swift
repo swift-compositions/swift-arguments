@@ -26,7 +26,12 @@ extension Argument.Tokenizer.Default {
             let elementEnd = Text.Position(
                 _unchecked: Ordinal(Swift.UInt(byteOffset + elementByteCount))
             )
-            let elementRange = Text.Range(start: elementStart, end: elementEnd)
+            let elementRange: Text.Range
+            do throws(Text.Range.Error) {
+                elementRange = try Text.Range(start: elementStart, end: elementEnd)
+            } catch {
+                preconditionFailure("An argv element's end follows its start: \(error)")
+            }
             defer { byteOffset += elementByteCount }
 
             if afterEndOfOptions {
