@@ -460,7 +460,7 @@ extension Command.Schema.ParseVisitor {
             let missing = positionals[positionalCursor]
             throw .missingPositional(
                 name: missing.name,
-                position: .init(argvIndex: .zero, byteOffset: .zero)
+                position: endPosition()
             )
         }
 
@@ -851,9 +851,35 @@ extension Command.Schema.ParseVisitor {
     @usableFromInline
     internal func position(from token: Argument.Token) -> Argument.Position {
         Argument.Position(
-            argvIndex: .zero,
+            argvIndex: Index<String>(Ordinal(UInt(argvIndex(of: token)))),
             byteOffset: .init(fromZero: token.range.start.retag(Byte.self))
         )
+    }
+
+    @usableFromInline
+    internal func endPosition() -> Argument.Position {
+        let byteCount = argv.reduce(0) { $0 + $1.utf8.count }
+        return Argument.Position(
+            argvIndex: Index<String>(Ordinal(UInt(argv.count))),
+            byteOffset: .init(fromZero: Index<Byte>(Ordinal(UInt(byteCount))))
+        )
+    }
+
+    @usableFromInline
+    internal func argvIndex(of token: Argument.Token) -> Int {
+        var elementStart = 0
+        for (index, element) in argv.enumerated() {
+            let elementEnd = elementStart + element.utf8.count
+            let start = Text.Position(_unchecked: Ordinal(UInt(elementStart)))
+            let end = Text.Position(_unchecked: Ordinal(UInt(elementEnd)))
+            if token.range.isEmpty {
+                if element.isEmpty, token.range.start == start { return index }
+            } else if start <= token.range.start, token.range.start < end {
+                return index
+            }
+            elementStart = elementEnd
+        }
+        return 0
     }
 
     @usableFromInline

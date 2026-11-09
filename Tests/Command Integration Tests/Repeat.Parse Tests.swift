@@ -109,6 +109,34 @@ extension Repeat {
         }
 
         @Test
+        func `Unexpected positional reports its argv index`() {
+            #expect(
+                throws: Command.Error.unexpectedPositional(
+                    value: "extra",
+                    position: .init(argvIndex: 2, byteOffset: 11)
+                )
+            ) {
+                _ = try Command.parse(
+                    Repeat.self,
+                    from: ["--counter", "hi", "extra"],
+                    initial: Repeat()
+                )
+            }
+        }
+
+        @Test
+        func `Missing positional reports the position after the last argv element`() {
+            #expect(
+                throws: Command.Error.missingPositional(
+                    name: "phrase",
+                    position: .init(argvIndex: 1, byteOffset: 9)
+                )
+            ) {
+                _ = try Command.parse(Repeat.self, from: ["--counter"], initial: Repeat())
+            }
+        }
+
+        @Test
         func `--help triggers .helpRequested`() {
             do throws(Command.Error) {
                 _ = try Command.parse(Repeat.self, from: ["--help"], initial: Repeat())
